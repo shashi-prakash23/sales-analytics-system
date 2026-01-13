@@ -75,3 +75,4 @@ sales-analytics-system/
 ### Install Dependencies
 ```bash
 pip install -r requirements.txt
+python main.py
