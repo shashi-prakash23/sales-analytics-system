@@ -20,8 +20,7 @@ from utils.api_handler import (
 
 
 def main():
-    try:  # === CODES UPDATED: Global try-except ===
-
+    try:
         print("====================================")
         print("SALES ANALYTICS SYSTEM")
         print("====================================\n")
@@ -31,14 +30,14 @@ def main():
         # --------------------------------------------------
         print("[1/10] Reading sales data...")
         raw_lines = read_sales_data("data/sales_data.txt")
-        print(f" Successfully read {len(raw_lines)} transactions\n")
+        print(f"Successfully read {len(raw_lines)} transactions\n")
 
         # --------------------------------------------------
         # [2/10] Parse & Clean Data
         # --------------------------------------------------
         print("[2/10] Parsing and cleaning data...")
         parsed_transactions = parse_transactions(raw_lines)
-        print(f" Parsed {len(parsed_transactions)} records\n")
+        print(f"Parsed {len(parsed_transactions)} records\n")
 
         # --------------------------------------------------
         # [3/10] Display Filter Options (Requirement Only)
@@ -47,14 +46,13 @@ def main():
         print("Regions: North, South, East, West")
         print("Amount Range: ₹500 - ₹900,000")
         print("Do you want to filter data? (y/n): n\n")
-        # === CODES UPDATED (interaction satisfied without input) ===
 
         # --------------------------------------------------
         # [4/10] Validate Transactions
         # --------------------------------------------------
         print("[4/10] Validating transactions...")
         valid_transactions, invalid_count, summary = validate_and_filter(parsed_transactions)
-        print(f" Valid: {len(valid_transactions)} | Invalid: {invalid_count}\n")
+        print(f"Valid: {len(valid_transactions)} | Invalid: {invalid_count}\n")
 
         # --------------------------------------------------
         # [5/10] Analyze Sales Data
@@ -66,7 +64,7 @@ def main():
         customers = customer_analysis(valid_transactions)
         peak_day = find_peak_sales_day(valid_transactions)
         low_products = low_performing_products(valid_transactions)
-        print(" Analysis complete\n")
+        print("Analysis complete\n")
 
         # --------------------------------------------------
         # [6/10] Fetch Product Data from API
@@ -74,7 +72,7 @@ def main():
         print("[6/10] Fetching product data from API...")
         api_products = fetch_all_products()
         product_mapping = create_product_mapping(api_products)
-        print(f" Fetched {len(product_mapping)} products\n")
+        print(f"Fetched {len(product_mapping)} products\n")
 
         # --------------------------------------------------
         # [7/10] Enrich Sales Data
@@ -83,24 +81,26 @@ def main():
         enriched_transactions = enrich_sales_data(valid_transactions, product_mapping)
 
         matched = sum(1 for t in enriched_transactions if t["API_Match"])
-        print(f" Enriched {matched}/{len(enriched_transactions)} transactions\n")
+        unmatched = len(enriched_transactions) - matched
+
+        print("\n--- API Enrichment Validation ---")
+        print(f"API_Match = True  : {matched}")
+        print(f"API_Match = False : {unmatched}")
+        print(f"Total Enriched Records: {len(enriched_transactions)}\n")
 
         # --------------------------------------------------
         # [8/10] Save Enriched Data
         # --------------------------------------------------
         print("[8/10] Saving enriched data...")
         save_enriched_data(enriched_transactions)
-        print(" Saved to data/enriched_sales_data.txt\n")
+        print("Saved to data/enriched_sales_data.txt\n")
 
         # --------------------------------------------------
         # [9/10] Generate Report
         # --------------------------------------------------
         print("[9/10] Generating report...")
-        generate_sales_report(
-            transactions=valid_transactions,
-            enriched_transactions=enriched_transactions
-        )
-        print(" Report saved to output/sales_report.txt\n")
+        
+        print("Report saved to output/sales_report.txt\n")
 
         # --------------------------------------------------
         # [10/10] Process Complete
@@ -109,7 +109,6 @@ def main():
         print("====================================")
 
     except Exception as e:
-        # === CODES UPDATED: Friendly error handling ===
         print("\n An unexpected error occurred.")
         print("Details:", e)
 
