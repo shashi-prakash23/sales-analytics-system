@@ -23,19 +23,19 @@ def main():
     print("=== SALES ANALYTICS SYSTEM STARTED ===\n")
 
     # --------------------------------------------------
-    # Q2 – PART 1: Read Raw Sales Data
+    # Read Raw Sales Data
     # --------------------------------------------------
     raw_lines = read_sales_data("data/sales_data.txt")
     print(f"Raw lines read (excluding header): {len(raw_lines)}")
 
     # --------------------------------------------------
-    # Q1 – PART 1: Parse & Clean Data
+    # Parse & Clean Data
     # --------------------------------------------------
     parsed_transactions = parse_transactions(raw_lines)
     print(f"Total records parsed: {len(parsed_transactions)}")
 
     # --------------------------------------------------
-    # Q1 – PART 2: Validate & Filter
+    # Validate & Filter
     # --------------------------------------------------
     valid_transactions, invalid_count, summary = validate_and_filter(parsed_transactions)
 
@@ -44,7 +44,7 @@ def main():
     print(f"Valid records after cleaning: {len(valid_transactions)}")
 
     # --------------------------------------------------
-    # Q3 – PART 1–5: Data Processing
+    # Data Processing
     # --------------------------------------------------
     total_revenue = calculate_total_revenue(valid_transactions)
     print(f"\nTotal Revenue: {total_revenue}")
@@ -73,24 +73,24 @@ def main():
         print(p)
 
     # --------------------------------------------------
-    # Q4 – PART 1: Fetch Products from DummyJSON API
+    # Fetch Products from DummyJSON API
     # --------------------------------------------------
     print("\n=== FETCHING PRODUCTS FROM API ===")
     api_products = fetch_all_products()
 
     # --------------------------------------------------
-    # Q4 – PART 2: Create Product Mapping
+    # Create Product Mapping
     # --------------------------------------------------
     product_mapping = create_product_mapping(api_products)
     print(f"Product mapping created for {len(product_mapping)} API products")
 
     # --------------------------------------------------
-    # Q4 – PART 3: Enrich Sales Data
+    # Enrich Sales Data
     # --------------------------------------------------
     enriched_transactions = enrich_sales_data(valid_transactions, product_mapping)
 
     # --------------------------------------------------
-    # Q4 – PART 4: Validate Enrichment Count
+    # Validate Enrichment Count
     # --------------------------------------------------
     matched_count = sum(1 for t in enriched_transactions if t["API_Match"])
     unmatched_count = sum(1 for t in enriched_transactions if not t["API_Match"])
@@ -101,13 +101,13 @@ def main():
     print(f"Total Enriched Records: {len(enriched_transactions)}")
 
     # --------------------------------------------------
-    # Q4 – PART 4: Save Enriched Data to File
+    # Save Enriched Data to File
     # --------------------------------------------------
     save_enriched_data(enriched_transactions)
 
     # ==================================================
     
-    # Q5 – TASK 4.1: Generate Text Report
+    # Generate Text Report
     # ==================================================
     generate_sales_report(
         transactions=valid_transactions,

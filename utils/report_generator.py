@@ -15,10 +15,10 @@ def generate_sales_report(transactions, enriched_transactions, output_file="outp
     Generates a comprehensive formatted text report
     """
 
-    # === CODES UPDATED ===
+    
     # Ensure output directory exists before writing the report
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
-    # === CODES UPDATED ===
+    
 
     with open(output_file, "w", encoding="utf-8") as file:
 
